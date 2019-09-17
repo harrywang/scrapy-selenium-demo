@@ -1,0 +1,2 @@
+Scrapy>=1.7.3
+selenium>=3.141.0
