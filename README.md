@@ -24,4 +24,39 @@ For example, this repo uses the chromedriver 77.0.3865.40 that supports Chrome v
 
 ## Run
 
-Run `scrapy crawl dribbble`, which should start an instance of Chrome and scroll to the bottom of the page automatically. The extracted data is logged to the console. 
+Run `scrapy crawl dribbble`, which should start an instance of Chrome and scroll to the bottom of the page automatically. The extracted data is logged to the console.
+
+## Use ProxyMesh with Scrapy
+
+You must set the `http_proxy` environment variable, then activate the HttpProxyMiddleware.
+
+For HTTP:
+
+```bash
+$ export http_proxy=http://USERNAME:PASSWORD@HOST:PORT
+```
+
+such as:
+```bash
+$ export http_proxy=http://harrywang:mypassword@us-wa.proxymesh.com:31280
+```
+
+For HTTPS:
+
+For https requests, you should use  IP authentication, and remove USERNAME:PASSWORD@ from the http_proxy variable.
+
+To activate the HttpProxyMiddleware, uncomment the following part in `settings.py`:
+
+```python
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 100,
+}
+```
+## Use ProxyMesh with Selenium
+
+IP authentication must be set first: add the IP of the machine running this script to you ProxyMesh account for IP authentication. Then, uncomment the following two lines in the spider file.
+
+```python
+# PROXY = "us-wa.proxymesh.com:31280"
+# chrome_options.add_argument('--proxy-server=%s' % PROXY)
+```
