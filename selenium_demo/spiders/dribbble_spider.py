@@ -80,3 +80,4 @@ class DribbbleSpider(scrapy.Spider):
         search_button = driver.find_element_by_css_selector('input[type="submit"]')
         search_button.click()
         sleep(5)
+        driver.quit()
